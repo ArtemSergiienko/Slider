@@ -1,0 +1,290 @@
+.slider__wrapper
+  position: relative
+  width: 100%
+  height: 510px
+
+  +max-w(991px)
+    height: 660px
+
+  +max-w(768px)
+    height: 550px
+
+  +max-w(500px)
+    height: 600px
+
+  +max-w(360px)
+    height: 620px
+
+@mixin transform
+  $count: 0
+  $step: 25
+  @for $i from 1 through 10
+    &:nth-child(#{$i})
+      z-index: #{11 - $i}
+      top: #{$count + ($i * $step)}px
+      transform: scale(#{1.04 - ($i*0.04)})
+      opacity: #{1.1 - ($i/10)}
+
+.slide
+  position: absolute
+  top: 0
+  left: 0
+  background: #FFFFFF
+  display: flex!important
+  width: 100%
+  height: 445px
+  border-radius: 4px
+  box-shadow: 0 12px 40px rgba(33, 33, 33, 0.1)
+  transform-origin: center
+  transition: 0.8s cubic-bezier(0.28, 1, 0.385, 1.65)
+  cursor: pointer
+
+  +max-w(991px)
+    flex-direction: column
+    height: 90.5%
+
+  @include transform
+
+  &:nth-child(n+2)
+    .slide__part
+      opacity: 0
+
+  &:nth-child(n+4)
+    opacity: 0
+    visibility: hidden
+
+.slide__part
+  display: flex
+  flex-direction: column
+  width: 50%
+  transition: opacity 0.4s
+
+  +max-w(1260px)
+    width: 40%
+
+    &:first-child
+      width: 60%
+
+  +max-w(991px)
+    width: 100%
+
+    &:first-child
+      display: flex
+      flex-direction: column
+      width: 100%
+      height: 100%
+      order: 1
+
+    &:last-child
+      height: 300px
+
+  +max-w(768px)
+
+    &:last-child
+      height: 190px
+
+.slide__part--padding
+  padding: 60px 20px 60px 55px
+
+  +max-w(991px)
+    padding: 20px 25px
+
+  +max-w(768px)
+    padding-top: 5px
+
+  +max-w(375px)
+    padding-right: 25px
+
+.slide__subtitle
+  margin-bottom: 10px
+
+  +max-w(991px)
+    margin-bottom: 5px
+
+.slide__info
+  max-width: 500px
+  color: #000
+  font-size: 16px
+  line-height: calc(26/16)
+  margin-bottom: auto
+
+  +max-w(1260px)
+    margin-bottom: 50px
+
+  +max-w(991px)
+    flex-grow: 1
+    font-size: 14px
+    max-width: 100%
+    max-height: 210px
+    margin-bottom: 15px
+
+.slide__link
+  padding: 16px 33px
+  text-align: center
+  margin-right: 20px
+
+  +max-w(1260px)
+    width: 100%
+    margin: 0 0 20px 0
+
+  +max-w(768px)
+    width: 100%
+    padding: 13px 0
+
+.slide__img
+  position: relative
+  max-width: 100%
+  max-height: 100%
+  height: 100%
+  width: 100%
+  overflow: hidden
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    width: 50%
+    height: 100%
+    background-image: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0.8) 42.19%, rgba(255, 255, 255, 0) 100%)
+
+    +max-w(991px)
+      width: 100%
+      height: 100px
+      top: auto
+      bottom: 0
+      background-image: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0.8) 42.19%, rgba(255, 255, 255, 0) 100%)
+
+  img
+    display: block
+    max-width: 100%
+    height: 100%
+    object-fit: cover
+    font-family: 'object-fit: cover;'
+
+    +max-w(991px)
+      width: 100%
+
+.slide__pagination
+  display: flex
+
+  +max-w(1260px)
+    flex-direction: column
+    align-items: center
+
+.slide__btns
+  display: flex
+
+.slide__btn
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 65px
+  height: 65px
+  background-color: #FFFFFF
+  border-radius: 50%
+  border: 1px solid #FFBC1C
+  cursor: pointer
+  transition: background-color 0.3s
+
+  +max-w(991px)
+    width: 57px
+    height: 57px
+
+  svg
+
+    +max-w(768px)
+      width: 8px
+
+    path
+      transition: fill 0.3s
+
+  &:hover
+    background-color: #FFBC1C
+
+    svg
+
+      path
+        fill: #fff
+
+  &:focus
+    outline: none
+    background-color:  #E3A614
+
+    svg
+
+      path
+        fill: #fff
+
+.slide__btn-prev
+  margin-right: 10px
+
+  svg
+    transform: rotate(180deg)
+
+.slide__btn--disabled
+  border: 1px solid #E8E8E8
+  pointer-events: none
+
+  svg
+
+    path
+      fill: rgba(33, 33, 18, 0.5)
+
+  &:hover
+    border: 1px solid #E8E8E8
+    background-color: #fff
+
+    svg
+
+      path
+        fill: rgba(33, 33, 18, 0.5)
+
+
+.slide-down
+  animation: scaleDown 500ms ease-in-out
+
+.slide-up
+  animation: scaleUp 400ms ease-in-out
+  display: none
+
+@keyframes scaleUp
+  0%
+    transform: scale(1.07) translateY(50px)
+    opacity: 0
+  20%
+    transform: scale(1.05) translateY(40px)
+    opacity: 0.10
+  40%
+    transform: scale(1.03) translateY(30px)
+    opacity: 0.20
+  60%
+    transform: scale(1.02) translateY(20px)
+    opacity: 0.40
+  80%
+    transform: scale(1.01) translateY(10px)
+    opacity: 0.80
+  100%
+    transform: scale(1) translateY(0)
+    opacity: 1
+
+@keyframes scaleDown
+  0%
+    transform: scale(1) translateY(0)
+    opacity: 1
+  20%
+    transform: scale(0.95) translateY(20px)
+    opacity: 0.80
+  40%
+    transform: scale(0.93) translateY(30px)
+    opacity: 0.40
+  60%
+    transform: scale(0.9) translateY(50px)
+    opacity: 0.20
+  80%
+    transform: scale(0.87) translateY(30px)
+    opacity: 0.10
+  100%
+    transform: scale(0.85) translateY(20px)
+    opacity: 0
+

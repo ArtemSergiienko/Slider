@@ -1,5 +1,3 @@
-# FRONTEND BOILERPLATE
-
 ## Install
 ```sh
 $ git clone 
